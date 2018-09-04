@@ -1,7 +1,5 @@
 # Aliases
 
-alias st='subl3'
-alias subl='subl3'
 alias cp='cp -i'
 alias df='df -h'
 alias egrep='egrep --color=auto'
@@ -10,7 +8,7 @@ alias grep='grep --color=auto'
 alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %J:%M" --color=auto -F'
 alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %J:%M" --color=auto -F'
 alias ls='ls --color=auto'
-alias update='yaourt -Syua'
+alias update='yay -Syua'
 alias more=less
 alias tf=terraform
 alias tfa='terraform apply'

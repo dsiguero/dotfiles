@@ -24,7 +24,9 @@ setopt appendhistory extendedglob
 bindkey -e
 
 export BROWSER=chromium
+export TERMINAL=termite
 export ANTIGEN=/usr/share/zsh/share/antigen.zsh
+export PATH="$PATH:$HOME/.bin"
 
 # Aliases #
 
@@ -36,5 +38,8 @@ export ANTIGEN=/usr/share/zsh/share/antigen.zsh
 # Command not found hook # 
 [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
 
-# Dev tooling config #
+# Dev stuff #
 [[ -s $ZSH_CONFIG/dev.zsh ]] && source $ZSH_CONFIG/dev.zsh
+
+# FZF general functions #
+[[ -s $ZSH_CONFIG/fzf.zsh ]] && source $ZSH_CONFIG/fzf.zsh

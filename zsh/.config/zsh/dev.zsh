@@ -1,4 +1,4 @@
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/.tfenv/bin:$PATH"
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 # NVM
@@ -21,6 +21,10 @@ add-zsh-hook chpwd load-nvmrc
 
 # AWS ZSH completer
 [[ -s aws_zsh_completer.zsh ]] && source aws_zsh_completer.zsh
+
+# Git loves fzf
+[[ -s $ZSH_CONFIG/fzf-git.zsh ]] && source $ZSH_CONFIG/fzf-git.zsh
+
 
 # SDKMAN
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
