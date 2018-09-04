@@ -1,33 +1,95 @@
 import XMonad
-import XMonad.Config.Mate
 
 import XMonad.Layout.Spacing 
 import XMonad.Layout.Grid
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
 import XMonad.Layout.MultiToggle
+import XMonad.Layout.Gaps
+import XMonad.Layout.Named
+
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+
+-- import XMonad.Hooks.EwmhDesktops
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
+
+main = do
+  xmonad $ docks $ ewmh def
+    {
+      -- Basic stuff
+      terminal = myTerminal
+      , modMask = mod4Mask
+      , borderWidth = myBorderWidth
+      , focusedBorderColor = myFocusedBorderColor
+      , normalBorderColor = myNormalBorderColor
+      -- Layout and hooks
+      -- , handleEventHook = fullscreenEventHook
+      , layoutHook = myLayoutHook
+      , manageHook = myManageHook <+> manageHook def
+      -- Shortcuts
+      , keys = mergedKeys
+    }
+
+
 myTerminal = "termite"
 myModMask = mod4Mask
-myFocusedBorderColor = "#3F94A8"
-myNormalBorderColor = "#E6E8EF"
+myFocusedBorderColor = "#8c9440"
+myNormalBorderColor = "#272930"
+myGapWidth = 0
 myBorderWidth = 2
-myLayout = desktopLayoutModifiers $ tiled ||| Mirror tiled ||| Full
-  where
-    tiled   = Tall nmaster delta ratio -- default tiling algorithm partitions the screen into two panes
-    nmaster = 1 -- The default number of windows in the master pane
-    ratio   = 5/8 -- Default proportion of screen occupied by master pane
-    delta   = 3/100 -- Percent of screen to increment by when resizing panes
+-- myScratchpads = [NS "termite" "termite -e htop" (className =? "Termite") (customFloating $ W.RationalRect (1/10) (1/10) (4/5) (4/5))]
 
---layoutHook = spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $
-             --layoutHook def
+myLayoutHook =  (avoidStruts $ smartBorders (tiled ||| mtiled ||| mgrid)) ||| full 
+  where
+    gaps = spacingRaw True (Border 5 5 5 5) True (Border 15 15 15 15) True
+    tiled = named "Tall" $ gaps $ Tall 1 (3/100) (5/8) 
+    mtiled = named "Wide" $ Mirror tiled
+    mgrid = named "Grid" $ gaps $ Mirror Grid
+    full = named "Full" $ smartBorders Full
+    -- 1 The default number of windows in the master pane
+    -- 3/100  Percent of screen to increment by when resizing panes
+    -- 5/8 Default proportion of screen occupied by master pane
+
 --myLayout = (spacing 10 $ avoidStruts (tall ||| GridRatio (4/3) ||| Full )) ||| smartBorders Full
                    -- where tall = Tall 1 (3/100) (1/2)
 -- myLayout = avoidStruts $ spacing 4 $ Tall 1 (3/100) (1/2)
 
+myManageHook = composeAll $
+  [
+    manageDocks
+    , isFullscreen --> doFullFloat
+    , isDialog --> doFloat
+  ]
+  ++ [className =? name --> doFullFloat | name <- myFullFloats]
+  ++ [className =? name --> doFloat | name <- myFloats]
+  ++ [className =? name --> doIgnore | name <- myIgnores]
+  where
+    myFloats = ["vlc", "Vlc"]
+    myFullFloats = ["vlc", "Vlc"]
+    myIgnores = ["mate-panel"]
+
+  --   myManageHook = composeAll $
+  -- [
+  --   isFullscreen --> doFullFloat
+  --   , isDialog --> doFloat    
+  -- ]
+  -- ++ [className =? name --> doFullFloat | name <- myFullFloats]
+  -- ++ [className =? name --> doFloat | name <- myFloats]
+  -- ++ [className =? name --> doIgnore | name <- myIgnores]
+  -- where
+  --   myFloats = ["vlc", "Vlc"]
+  --   myFullFloats = ["vlc", "Vlc"]
+  --   myIgnores = ["mate-panel"]
+
+myRofi = "rofi -show run -terminal $TERMINAL"
+myRofyHistory = "$HOME/.bin/ihistory | rofi -dmenu -mesg 'History'"
+compton = "killall compton && compton &"
+screenshot = "$HOME/.bin/screenshot"
 
 -- SHORTCUT CONFIG
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -39,10 +101,23 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         , ((modm .|. shiftMask, xK_Return), windows W.swapMaster)
 
         -- launch rofi
-        , ((modm,               xK_p     ), spawn "rofi -show run")
+        , ((modm, xK_p), spawn myRofi)
 
         -- close focused window
-        , ((modm, xK_c     ), kill)
+        , ((modm .|. shiftMask, xK_c), kill)
+
+        -- disable struts (dock spacing)
+        , ((modm, xK_b), sendMessage ToggleStruts)
+
+        -- Reload compton
+        , ((modm .|. shiftMask, xK_0), spawn compton)
+
+        -- Reload compton
+        -- Should kill it first?
+        , ((modm .|. shiftMask, xK_s), spawn screenshot)
+
+        -- Rofi dmenu history mode
+        , ((modm,               xK_Up), spawn myRofyHistory)
 
         -- launch thunar
         -- , ((modm .|. shiftMask, xK_f     ), spawn "thunar")
@@ -51,7 +126,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         -- , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
 
         -- launch zeal
-        -- , ((modm,               xK_z     ), namedScratchpadAction myScratchpads "zeal")
+        -- , ((modm .|. shiftMask,               xK_z     ), namedScratchpadAction myScratchpads "termite")
 
         -- launch telegram
         -- , ((modm,               xK_F10   ), namedScratchpadAction myScratchpads "telegram")
@@ -149,16 +224,4 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 mergedKeys x  = myKeys x `M.union` keys def x
 
-main = do
-    xmonad $ mateConfig
-        {
-            terminal = myTerminal
-            , modMask = mod4Mask
-            , borderWidth = myBorderWidth
-            , focusedBorderColor = myFocusedBorderColor
-            , normalBorderColor = myNormalBorderColor
-            --, layoutHook = smartBorders $ layoutHook
-            -- key bindings
-            , keys = mergedKeys
-            , layoutHook = myLayout
-        }
+

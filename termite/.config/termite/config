@@ -1,10 +1,19 @@
+[options]
+font=Hack 10
+# font=Source Code Pro for Powerline 10
+clickable_url=true
+scrollback_lines=10000
+cursor_blink=on
+
+
 [colors]
 
 # special
 foreground      = #e6e8ef
 foreground_bold = #e6e8ef
 cursor          = #e6e8ef
-background      = #1c1e22
+background      = rgba(28, 30, 34, 0.6)
+#background      = #1c1e22
 
 # black
 color0  = #23252b
