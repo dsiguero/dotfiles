@@ -38,7 +38,7 @@ main = do
 
 myTerminal = "termite"
 myModMask = mod4Mask
-myFocusedBorderColor = "#8c9440"
+myFocusedBorderColor = "#77B3C5"
 myNormalBorderColor = "#272930"
 myGapWidth = 0
 myBorderWidth = 2
