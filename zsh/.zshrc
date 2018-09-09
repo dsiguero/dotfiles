@@ -43,3 +43,9 @@ export PATH="$PATH:$HOME/.bin"
 
 # FZF general functions #
 [[ -s $ZSH_CONFIG/fzf.zsh ]] && source $ZSH_CONFIG/fzf.zsh
+
+# Marker (command bookmark: https://github.com/pindexis/marker)
+[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+
+
+unalias fd

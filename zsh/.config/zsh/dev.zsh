@@ -25,6 +25,7 @@ add-zsh-hook chpwd load-nvmrc
 # Git loves fzf
 [[ -s $ZSH_CONFIG/fzf-git.zsh ]] && source $ZSH_CONFIG/fzf-git.zsh
 
+alias diff="git diff | ydiff -s"
 
 # SDKMAN
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
