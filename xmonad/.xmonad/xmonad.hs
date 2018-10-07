@@ -11,6 +11,10 @@ import XMonad.Layout.Named
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.DynamicLog
+
+import XMonad.Util.Run
+import XMonad.Util.NamedScratchpad
 
 -- import XMonad.Hooks.EwmhDesktops
 
@@ -19,6 +23,8 @@ import qualified Data.Map        as M
 
 
 main = do
+  h <- spawnPipe "xmobar $HOME/.xmonad/xmobar_top.hs"
+  w <- spawnPipe "xmobar $HOME/.xmonad/xmobar_top_second.hs"
   xmonad $ docks $ ewmh def
     {
       -- Basic stuff
@@ -30,9 +36,14 @@ main = do
       -- Layout and hooks
       -- , handleEventHook = fullscreenEventHook
       , layoutHook = myLayoutHook
+      , logHook = dynamicLogWithPP $
+        xmobarPP {
+          ppOutput = hPutStrLn h
+        }
       , manageHook = myManageHook <+> manageHook def
       -- Shortcuts
       , keys = mergedKeys
+      , workspaces = myWorkspaces
     }
 
 
@@ -42,7 +53,17 @@ myFocusedBorderColor = "#77B3C5"
 myNormalBorderColor = "#272930"
 myGapWidth = 0
 myBorderWidth = 2
--- myScratchpads = [NS "termite" "termite -e htop" (className =? "Termite") (customFloating $ W.RationalRect (1/10) (1/10) (4/5) (4/5))]
+myWorkspaces    = ["1","2","3","4","5", "6", "7", "8", "9:Spotify"]
+
+
+isConsole = (className =? "Termite")
+          <&&> (stringProperty "WM_WINDOW_ROLE" =? "Scratchpad")
+myConsole = "termite --role=Scratchpad"
+
+myScratchpads =
+  [
+    (NS "console"  myConsole isConsole (customFloating $ W.RationalRect 0 0 1 (1/3)))
+  ]
 
 myLayoutHook =  (avoidStruts $ smartBorders (tiled ||| mtiled ||| mgrid)) ||| full 
   where
@@ -62,6 +83,8 @@ myLayoutHook =  (avoidStruts $ smartBorders (tiled ||| mtiled ||| mgrid)) ||| fu
 myManageHook = composeAll $
   [
     manageDocks
+    , namedScratchpadManageHook myScratchpads
+    , className =? "Spotify" --> doShift (myWorkspaces !! 8)
     , isFullscreen --> doFullFloat
     , isDialog --> doFloat
   ]
@@ -119,14 +142,16 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         -- Rofi dmenu history mode
         , ((modm,               xK_Up), spawn myRofyHistory)
 
+        -- launch termite as scratchpad
+        , ((modm .|. shiftMask, xK_z), namedScratchpadAction myScratchpads "console")
+
         -- launch thunar
         -- , ((modm .|. shiftMask, xK_f     ), spawn "thunar")
 
         -- launch gmrun
         -- , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
 
-        -- launch zeal
-        -- , ((modm .|. shiftMask,               xK_z     ), namedScratchpadAction myScratchpads "termite")
+        
 
         -- launch telegram
         -- , ((modm,               xK_F10   ), namedScratchpadAction myScratchpads "telegram")
