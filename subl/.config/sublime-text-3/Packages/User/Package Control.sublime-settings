@@ -1,14 +1,9 @@
 {
 	"bootstrapped": true,
-	"in_process_packages":
-	[
-	],
 	"installed_packages":
 	[
-		"A File Icon",
 		"ayu",
 		"Babel",
-		"Boxy Theme",
 		"Gutter Color",
 		"Material Color Scheme",
 		"Materialize",
