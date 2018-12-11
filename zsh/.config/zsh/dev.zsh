@@ -1,4 +1,4 @@
-export PATH="$HOME/.rbenv/bin:$HOME/.tfenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/.tfenv/bin:$HOME/.local/bin:$PATH"
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 # NVM
@@ -21,6 +21,9 @@ add-zsh-hook chpwd load-nvmrc
 
 # AWS ZSH completer
 [[ -s aws_zsh_completer.zsh ]] && source aws_zsh_completer.zsh
+
+# AWS Profile/auth/MFA functions
+[[ -s $HOME/.aws/aws_functions.zsh ]] && source $HOME/.aws/aws_functions.zsh
 
 # Git loves fzf
 [[ -s $ZSH_CONFIG/fzf-git.zsh ]] && source $ZSH_CONFIG/fzf-git.zsh
