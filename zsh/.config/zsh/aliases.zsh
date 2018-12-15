@@ -14,3 +14,4 @@ alias tf=terraform
 alias tfa='terraform apply'
 alias tfp='terraform plan -out=plan.tfplan'
 alias tfd='terraform destroy'
+alias 2fa='ykman oath code $(ykman oath list | fzf)'
