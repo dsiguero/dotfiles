@@ -15,3 +15,25 @@ alias tfa='terraform apply'
 alias tfp='terraform plan -out=plan.tfplan'
 alias tfd='terraform destroy'
 alias 2fa='ykman oath code $(ykman oath list | fzf)'
+
+function win10() {
+  vm_name=win10
+
+  case "$1" in
+    'start')
+      echo "Starting Win 10 VM"
+      sudo virsh start $vm_name
+    ;;
+    'stop')
+      echo "Shutting down Win 10 VM"
+      sudo virsh shutdown $vm_name
+    ;;
+    'save')
+      echo "Saving Win 10 VM state..."
+      sudo virsh dompmsuspend --domain $vm_name --target disk
+    ;;
+    *)
+      echo "Usage: $0 [start|stop|save]"
+    ;;
+  esac
+} 
