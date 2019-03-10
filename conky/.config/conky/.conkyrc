@@ -1,0 +1,76 @@
+conky.config = {
+
+-------------------------------------
+--  Generic Settings
+-------------------------------------
+background=true,
+update_interval=4,
+double_buffer=true,
+no_buffers=true,
+imlib_cache_size=0,
+
+draw_shades=false,
+draw_outline=false,
+draw_borders=false,
+
+
+-------------------------------------
+--  Window Specifications
+-------------------------------------
+gap_x=0,
+gap_y=0,
+
+alignment="top_right",
+
+minimum_height=100,
+minimum_width=600,
+
+own_window=true,
+own_window_type="dock",
+own_window_transparent=true,
+own_window_hints="undecorated,below,sticky,skip_taskbar,skip_pager",
+
+own_window_argb_visual=true,
+own_window_argb_value=0,
+
+
+-------------------------------------
+--  Text Settings
+-------------------------------------
+use_xft=true,
+xftalpha=1,
+font="Noto Sans Light:size=10",
+text_buffer_size=256,
+override_utf8_locale=true,
+
+
+-------------------------------------
+--  Color Scheme
+-------------------------------------
+default_color='FFFFFF',
+
+color0='DDD', -- clock
+color1='AAA', -- date
+
+}
+
+
+---------------------------------------------------
+---------------------------------------------------
+
+
+conky.text = [[
+\
+\
+\
+${font Noto Sans:weight=Light:size=28}${color1}\
+${voffset 10}\
+${alignr}${offset -15}${execi 300 date +"%A, %B %d"}\
+${font}${color}
+\
+\
+\
+${font Noto Sans:weight=Regular:size=86}${color0}\
+${alignr}${offset -15}${time %H:%M}\
+${font}${color}
+]]
