@@ -1,0 +1,1 @@
+/home/dan/.keepass/	IN_CLOSE_WRITE	rclone sync $@ dropbox:keepass/

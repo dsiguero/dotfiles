@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+function keesync() {
+  db_path=$HOME/.keepass/
+  dropbox_path=keepass/
+
+  case "$1" in
+    'local-sync')
+      echo "Downloading latest Keepass DB from Dropbox..."
+      rclone sync -P dropbox:keepass/ $HOME/.keepass/
+    ;;
+    'remote-sync')
+      echo "Uploading local Keepass DB to Dropbox..."
+      rclone sync $HOME/.keepass/ dropbox:keepass/
+    ;;
+    *)
+      echo "Usage: $0 [local-sync|remote-sync]"
+    ;;
+  esac
+}
+
+keesync $1
