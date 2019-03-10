@@ -1,5 +1,11 @@
-export PATH="$HOME/.rbenv/bin:$HOME/.tfenv/bin:$HOME/.local/bin:$PATH"
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
+export PYENV_ROOT="$HOME/.pyenv"
+
+export PATH="$HOME/.rbenv/bin:$HOME/.tfenv/bin:$HOME/.local/bin:$PYENV_ROOT/bin:$PATH"
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
