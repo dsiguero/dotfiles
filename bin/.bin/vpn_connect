@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [[ -z ${OVPN_PROFILE+x} ]]; then
+  echo "You need to provide the .ovpn file using the environment variable 'OVPN_PROFILE'";
+  exit 1
+else
+  echo "OpenVPN Profile file: '$OVPN_PROFILE'";
+  sudo openvpn --config ${OVPN_PROFILE} --daemon
+fi
+
+exit 0;
