@@ -1,14 +1,25 @@
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 export PYENV_ROOT="$HOME/.pyenv"
-
+export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.rbenv/bin:$HOME/.tfenv/bin:$HOME/.local/bin:$PYENV_ROOT/bin:$PATH"
 
+#########
+# RBENV #
+#########
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+#########
+# PYENV #
+#########
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
+#######
+# NVM #
+#######
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
@@ -34,11 +45,3 @@ add-zsh-hook chpwd load-nvmrc
 # Git loves fzf
 [[ -s $ZSH_CONFIG/fzf-git.zsh ]] && source $ZSH_CONFIG/fzf-git.zsh
 
-alias diff="git diff | ydiff -s"
-
-# SDKMAN
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/siwi/.sdkman"
-[[ -s "/home/siwi/.sdkman/bin/sdkman-init.sh" ]] && source "/home/siwi/.sdkman/bin/sdkman-init.sh"
-
-eval "$(rbenv init -)"
