@@ -1,9 +1,16 @@
+## Enable for profiling
+# zmodload zsh/zprof
+
 # ZSH autocompletion config
 zstyle ':completion:*' completer _complete _ignored
-zstyle :compinstall filename '/home/siwi/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
-compinit
+if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+	compinit
+else
+	compinit -C
+fi
 
 if ! [[ "$OSTYPE" =~ ^darwin ]]; then
 	xhost +local:root > /dev/null 2>&1;
@@ -62,3 +69,6 @@ if ! [[ "$OSTYPE" =~ ^darwin ]]; then
 	# Can use fd as a 'find' alias because it's not a command in OS X
 	unalias fd;
 fi
+
+## Enable for profiling
+# zprof

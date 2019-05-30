@@ -6,22 +6,29 @@ export PATH="$HOME/.rbenv/bin:$HOME/.tfenv/bin:$HOME/.local/bin:$PYENV_ROOT/bin:
 #########
 # RBENV #
 #########
-if command -v rbenv 1>/dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
+rbenv() {
+	eval "$(rbenv init -)"
+	rbenv "$@"
+}
 
 #########
 # PYENV #
 #########
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+pyenv() {
+	eval "$(pyenv init -)"
+	pyenv "$@"
+}
+
 
 #######
 # NVM #
 #######
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm () {
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion	
+	nvm "$@"
+}
+
 
 # running nvm use if .nvmrc exists when accessing a directory
 autoload -U add-zsh-hook
