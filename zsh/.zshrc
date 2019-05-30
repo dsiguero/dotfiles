@@ -26,16 +26,16 @@ bindkey -e
 case "$OSTYPE" in
   darwin*)
 	export ANTIGEN=/usr/local/share/antigen/antigen.zsh
+	export PATH="/usr/local/sbin:$PATH"
 	;; 
   linux*)
 	EDITOR=nano
 	export BROWSER=chromium
 	export TERMINAL=termite
 	export ANTIGEN=/usr/share/zsh/share/antigen.zsh
+	export PATH="$PATH:$HOME/.bin"
 	;;
 esac
-
-export PATH="$PATH:$HOME/.bin"
 
 
 # Aliases #
