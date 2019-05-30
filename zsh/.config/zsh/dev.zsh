@@ -6,18 +6,16 @@ export PATH="$HOME/.rbenv/bin:$HOME/.tfenv/bin:$HOME/.local/bin:$PYENV_ROOT/bin:
 #########
 # RBENV #
 #########
-rbenv() {
+if command -v rbenv 1>/dev/null 2>&1; then
 	eval "$(rbenv init -)"
-	rbenv "$@"
-}
+fi
 
 #########
 # PYENV #
 #########
-pyenv() {
+if command -v pyenv 1>/dev/null 2>&1; then
 	eval "$(pyenv init -)"
-	pyenv "$@"
-}
+fi
 
 
 #######
