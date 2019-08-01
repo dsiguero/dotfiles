@@ -21,12 +21,28 @@ fi
 #######
 # NVM #
 #######
-nvm () {
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion	
-	nvm "$@"
-}
 
+# Defer initialization of nvm until nvm, node or a node-dependent command is
+# run. Ensure this block is only run once if .zshrc gets sourced multiple times
+# by checking whether __init_nvm is a function.
+# https://www.growingwiththeweb.com/2018/01/slow-nvm-init.html
+
+# Originally using "$(type -t __init_nvm)" but zsh does not support -t
+
+if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type __init_nvm | awk '{ print $5 }')" = function ]; then
+  export NVM_DIR="$HOME/.nvm"
+  
+  declare -a __node_commands=('nvm' 'node' 'npm' 'npx' 'yarn' 'webpack')
+
+  function __init_nvm() {
+    for i in "${__node_commands[@]}"; do unalias $i; done
+    . "$NVM_DIR"/nvm.sh
+    unset __node_commands
+    unset -f __init_nvm
+  }
+
+  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+fi
 
 # running nvm use if .nvmrc exists when accessing a directory
 autoload -U add-zsh-hook
