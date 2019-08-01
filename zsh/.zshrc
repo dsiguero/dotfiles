@@ -46,14 +46,13 @@ esac
 
 
 # Aliases #
-
 [[ -s $ZSH_CONFIG/aliases.zsh ]] && source $ZSH_CONFIG/aliases.zsh
 
 # Antigen configuration #
 [[ -s $ZSH_CONFIG/antigen.zsh ]] && source $ZSH_CONFIG/antigen.zsh
 
-# Command not found hook # 
-[[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
+# # Command not found hook # 
+# [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Dev stuff #
 [[ -s $ZSH_CONFIG/dev.zsh ]] && source $ZSH_CONFIG/dev.zsh
@@ -61,8 +60,8 @@ esac
 # FZF general functions #
 [[ -s $ZSH_CONFIG/fzf.zsh ]] && source $ZSH_CONFIG/fzf.zsh
 
-# Marker (command bookmark: https://github.com/pindexis/marker)
-# [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+# # Marker (command bookmark: https://github.com/pindexis/marker)
+# # [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
 
 
 if ! [[ "$OSTYPE" =~ ^darwin ]]; then
@@ -70,5 +69,5 @@ if ! [[ "$OSTYPE" =~ ^darwin ]]; then
 	unalias fd;
 fi
 
-## Enable for profiling
-# zprof
+# ## Enable for profiling
+# # zprof
