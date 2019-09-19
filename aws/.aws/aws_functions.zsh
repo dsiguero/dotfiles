@@ -68,7 +68,7 @@ function mfa() {
   # Verifies a short term profile has been created
   temp_profile=$(cat ~/.aws/credentials | grep "\[${AWS_PROFILE}]" | sed 's/[][]//g')
 
-  if [ "${temp_profile}" == "${AWS_PROFILE}" ]; then
+  if [ "${temp_profile}" = "${AWS_PROFILE}" ]; then
     echo "You can now use the profile ${AWS_PROFILE}"
   else
     echo "aws-mfa failed generating the short-term profile ${AWS_PROFILE}"
