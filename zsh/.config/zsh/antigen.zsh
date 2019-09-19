@@ -12,7 +12,7 @@ if [[ -s $ANTIGEN ]]; then
 	antigen bundle sudo
 	antigen bundle node
 	antigen bundle npm
-	antigen bundle aws
+	# antigen bundle aws
 	antigen bundle dirhistory
 	antigen bundle ssh-agent
 	antigen bundle psprint/history-search-multi-word
@@ -21,7 +21,7 @@ if [[ -s $ANTIGEN ]]; then
 	antigen bundle MichaelAquilina/zsh-you-should-use
 	antigen bundle zsh-users/zsh-syntax-highlighting
   	
-  	antigen bundle dsiguero/blox-zsh-theme
+  	antigen bundle yardnsm/blox-zsh-theme
   	export BLOX_CONF__ONELINE=true
   	export BLOX_SEG__UPPER_LEFT=(host cwd git exec_time symbol)
 	# antigen bundle mafredri/zsh-async
