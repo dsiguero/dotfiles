@@ -7,11 +7,11 @@ function keesync() {
   case "$1" in
     'local-sync')
       echo "Downloading latest Keepass DB from Dropbox..."
-      rclone sync -P dropbox:keepass/ $HOME/.keepass/
+      rclone sync -P dropbox:"${dropbox_path}" "${db_path}"
     ;;
     'remote-sync')
       echo "Uploading local Keepass DB to Dropbox..."
-      rclone sync $HOME/.keepass/ dropbox:keepass/
+      rclone sync "${db_path}" dropbox:"${dropbox_path}"
     ;;
     *)
       echo "Usage: $0 [local-sync|remote-sync]"

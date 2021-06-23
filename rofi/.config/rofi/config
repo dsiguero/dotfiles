@@ -1,5 +1,0 @@
-rofi.combi-modi: window,drun,ssh
-rofi.font: Hack 11
-rofi.lines: 10
-rofi.sidebar-mode: true
-rofi.theme: /home/siwi/.local/share/rofi/themes/mine_lb.rasi
