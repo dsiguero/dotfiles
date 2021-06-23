@@ -1,0 +1,4 @@
+[submodule "vim/.vim"]
+	path = vim/.vim
+	url = https://github.com/gpakosz/.vim.git
+	branch = heavenly
