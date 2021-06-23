@@ -1,33 +1,27 @@
 # Antigen configuration
 
-if [[ -s $ANTIGEN ]]; then
-	source $ANTIGEN
+antigen use oh-my-zsh
 
-	antigen use oh-my-zsh
+antigen bundle zsh-users/zsh-completions						# Aditional completion definitions for zsh.
 
-	antigen bundle gitfast
-	antigen bundle git-extras
-	antigen bundle git-flow
-	antigen bundle common-aliases
-	antigen bundle sudo
-	antigen bundle node
-	antigen bundle npm
-	# antigen bundle aws
-	antigen bundle dirhistory
-	antigen bundle ssh-agent
-	antigen bundle psprint/history-search-multi-word
-	antigen bundle unixorn/git-extra-commands
-	antigen bundle jocelynmallon/zshmarks
-	antigen bundle MichaelAquilina/zsh-you-should-use
-	antigen bundle zsh-users/zsh-syntax-highlighting
-  	
-  	antigen bundle yardnsm/blox-zsh-theme
-  	export BLOX_CONF__ONELINE=true
-  	export BLOX_SEG__UPPER_LEFT=(host cwd git exec_time symbol)
-	# antigen bundle mafredri/zsh-async
-	# antigen bundle sindresorhus/pure
+antigen bundle zsh-users/zsh-syntax-highlighting				# This package provides syntax highlighting (whilst typing) for the shell zsh.
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor pattern line root)
 
-	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor pattern line root)
+antigen bundle zsh-users/zsh-autosuggestions					# Suggests commands as you type based on history and completions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#00617a,bold"				# For solarized dark theme
 
-	antigen apply
-fi
+antigen bundle sudo												# Prefix current or previous command with sudo by pressing ESC twice.
+
+antigen bundle ssh-agent
+antigen bundle psprint/history-search-multi-word				# History search
+antigen bundle MenkeTechnologies/zsh-very-colorful-manuals		# Coloured man pages
+antigen bundle jocelynmallon/zshmarks							# Simple CLI bookmarking plugin: `bookmark 'n`.
+																# 	bookmark '<myname>': creates a new bookmark.
+																#	jump '<myname>': cd to the given bookmark directory.
+
+# Theme and customizations
+antigen bundle yardnsm/blox-zsh-theme							
+BLOX_CONF__ONELINE=true
+BLOX_SEG__UPPER_LEFT=(host cwd git exec_time symbol)
+
+antigen apply

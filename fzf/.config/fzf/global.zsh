@@ -5,7 +5,7 @@
 # https://unix.stackexchange.com/questions/403916/getting-started-with-fzf-on-arch-linux
 
 # Loading ZSH autocompletion **<TAB>
-[[ -s /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
+[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
 
 # Using fd by default (find replacment)
 export FZF_DEFAULT_COMMAND='fd --type f'

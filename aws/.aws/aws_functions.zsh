@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+function assume-role() {
+  $(aws sts assume-role --role-arn "$1" --role-session-name "$2" | jq -r '.Credentials | .["AWS_ACCESS_KEY_ID"] = .AccessKeyId | .["AWS_SECRET_ACCESS_KEY"] = .SecretAccessKey | .["AWS_SESSION_TOKEN"] = .SessionToken | del(.AccessKeyId, .SecretAccessKey, .SessionToken, .Expiration) | to_entries | .[] | "export " + .key + "=" + .value')
+}
+
+
 # This function sets the AWS_PROFILE environment variable interactively, using fzf.
 # It skips the long-term profiles, as this is part of my setup using aws-mfa
 # (https://github.com/broamski/aws-mfa)
@@ -45,15 +50,19 @@ function mfa() {
     echo "You need to provide the AWS profile using the environment variable 'AWS_PROFILE'";
     return 1;
   fi
-
-  # Get MFA Serial
-  #
-  # Assumes "iam list-mfa-devices" is permitted without MFA
-  mfa_serial="$(aws iam list-mfa-devices --query 'MFADevices[*].SerialNumber' --output text --profile "${AWS_PROFILE}-long-term")";
-  if ! [ "${?}" -eq 0 ]; then
-    echo "Failed to retrieve MFA serial number" >&2;
-    return 1;
-  fi;
+  
+  if [[ -z ${AWS_MFA_SERIAL+x} ]]; then
+    # Get MFA Serial
+    #
+    # Assumes "iam list-mfa-devices" is permitted without MFA
+    mfa_serial="$(aws iam list-mfa-devices --query 'MFADevices[*].SerialNumber' --output text --profile "${AWS_PROFILE}-long-term")";
+    if ! [ "${?}" -eq 0 ]; then
+      echo "Failed to retrieve MFA serial number" >&2;
+      return 1;
+    fi;
+  else
+    mfa_serial=${AWS_MFA_SERIAL}
+  fi
   
   # Call AWS-MFA to get the session credentials
   # https://github.com/broamski/aws-mfa
