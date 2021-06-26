@@ -70,6 +70,8 @@ DEV_TOOLS=true
 DEV_MODE_PYTHON=true
 [[ "${DEV_TOOLS}" == "true" ]] && [[ -s $ZSH_CONFIG/dev.zsh ]] && source $ZSH_CONFIG/dev.zsh
 
+export BAT_THEME="Solarized (dark)"
+
 # fzf functions #
 FZF_CONFIG="${XDG_CONFIG}/fzf"
 if command -v fzf >/dev/null 2>&1; then
