@@ -6,3 +6,4 @@
 --ignore='LICENSE\.*'
 --ignore=.gitattributes
 --ignore=.github
+--ignore=.DS_Store
