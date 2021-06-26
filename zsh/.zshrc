@@ -78,6 +78,9 @@ if command -v fzf >/dev/null 2>&1; then
 	for f in "${FZF_CONFIG}"/*.zsh; do source $f; done
 fi
 
+[[ -s /usr/local/etc/profile.d/z.sh ]] && source /usr/local/etc/profile.d/z.sh 
+
+
 ## Enable for profiling
 #zprof
 
