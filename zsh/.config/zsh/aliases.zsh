@@ -20,6 +20,8 @@ if [ -f "/etc/arch-release" ]; then
   alias update='yay -Syua'
 fi
 
+alias j=jump
+
 alias more=less
 alias tf=terraform
 alias tfa='terraform apply'
