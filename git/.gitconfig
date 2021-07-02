@@ -83,3 +83,5 @@
     br = branch
     dc = diff --cached
 
+[include]
+    path = ~/.gitconfig.user
