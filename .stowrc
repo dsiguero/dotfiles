@@ -1,0 +1,9 @@
+--target=$HOME
+--verbose
+--dotfiles
+--ignore='^CVS'
+--ignore='README\.md'
+--ignore='LICENSE\.*'
+--ignore=.gitattributes
+--ignore=.github
+--ignore=.DS_Store

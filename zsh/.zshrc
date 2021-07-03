@@ -3,7 +3,14 @@
 
 # ZSH autocompletion config
 zstyle ':completion:*' completer _complete _ignored
+# zstyle ':completion:*:(cd|mv|cp):*' ignore-parents parent pwd
+# zstyle ':completion:*:(ls|mv|cd|chdir|pushd|popd):*' special-dirs ..
 zstyle :compinstall filename '$HOME/.zshrc'
+
+# Add brew's autocompletion functions to FPATH
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 
 autoload -Uz compinit
 if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
@@ -12,31 +19,38 @@ else
 	compinit -C
 fi
 
-if ! [[ "$OSTYPE" =~ ^darwin ]]; then
-	xhost +local:root > /dev/null 2>&1;
-fi
-
-# Environment variables #
-
+## Environment variables
 ZDOTDIR=$HOME
 XDG_CONFIG=$HOME/.config
 
+## History
+setopt extendedhistory					# Save command's beginning timestamp and duration in the history file.
+setopt appendhistory 					# Append history to history file (no overwriting).
+setopt sharehistory						# Share history across terminals.
+setopt incappendhistory					# Immediately append to the history file, not just when a terminal is stopped.
+setopt hist_ignore_dups     			# ignore duplicated commands history list
+setopt hist_find_no_dups				# ignore duplicates when searching (Ctrl + R)
+setopt hist_expire_dups_first 			# delete duplicates first when history exceeds HISTSIZE
+setopt hist_save_no_dups				# ignore duplicates when writing history file
+setopt hist_verify          			# show command with history expansion to user before running it
+
+HISTSIZE=5000
+SAVEHIST=10000
 HISTFILE=$HOME/.zsh_histfile
-HISTSIZE=1000
-SAVEHIST=1000
 
 ZSH_CONFIG=$XDG_CONFIG/zsh
 
-setopt appendhistory extendedglob
-bindkey -e
+setopt globdots				# Matches dot-files (hidden) without explicitly specifying the dot.
+
+EDITOR=vim
 
 case "$OSTYPE" in
   darwin*)
+	export BROWSER=open
 	export ANTIGEN=/usr/local/share/antigen/antigen.zsh
-	export PATH="/usr/local/sbin:$PATH"
+	export PATH="/usr/local/sbin:$PATH:$HOME/.bin"
 	;; 
   linux*)
-	EDITOR=nano
 	export BROWSER=chromium
 	export TERMINAL=termite
 	export ANTIGEN=/usr/share/zsh/share/antigen.zsh
@@ -44,30 +58,26 @@ case "$OSTYPE" in
 	;;
 esac
 
-
 # Aliases #
 [[ -s $ZSH_CONFIG/aliases.zsh ]] && source $ZSH_CONFIG/aliases.zsh
 
 # Antigen configuration #
-[[ -s $ZSH_CONFIG/antigen.zsh ]] && source $ZSH_CONFIG/antigen.zsh
-
-# # Command not found hook # 
-# [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
+[[ -s "${ANTIGEN}" ]] && source "${ANTIGEN}" && \
+	[[ -s "${ZSH_CONFIG}/antigen.zsh" ]] && source "${ZSH_CONFIG}/antigen.zsh"
 
 # Dev stuff #
-[[ -s $ZSH_CONFIG/dev.zsh ]] && source $ZSH_CONFIG/dev.zsh
+DEV_TOOLS=true
+DEV_MODE_PYTHON=true
+[[ "${DEV_TOOLS}" == "true" ]] && [[ -s $ZSH_CONFIG/dev.zsh ]] && source $ZSH_CONFIG/dev.zsh
 
-# FZF general functions #
-[[ -s $ZSH_CONFIG/fzf.zsh ]] && source $ZSH_CONFIG/fzf.zsh
+export BAT_THEME="Solarized (dark)"
 
-# # Marker (command bookmark: https://github.com/pindexis/marker)
-# # [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
-
-
-if ! [[ "$OSTYPE" =~ ^darwin ]]; then
-	# Can use fd as a 'find' alias because it's not a command in OS X
-	unalias fd;
+# fzf functions #
+FZF_CONFIG="${XDG_CONFIG}/fzf"
+if command -v fzf >/dev/null 2>&1; then
+	for f in "${FZF_CONFIG}"/*.zsh; do source $f; done
 fi
 
-# ## Enable for profiling
-# # zprof
+## Enable for profiling
+#zprof
+

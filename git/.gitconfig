@@ -48,7 +48,19 @@
     excludesfile = ~/.gitignore_global
     ; setting the editor fixes git commit bug http://tooky.co.uk/2010/04/08/there-was-a-problem-with-the-editor-vi-git-on-mac-os-x.html
     editor = /usr/bin/vim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+    ; pager = diff-so-fancy | less --tabs=4 -RFX
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+[delta]
+    syntax-theme = Solarized (dark)
+    navigate = true
+    line-numbers = true
+    side-by-side = true
+[interactive]
+    diffFilter = delta --color-only
 [alias]
     ; show merge tree + commits info
     graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
@@ -71,3 +83,8 @@
     br = branch
     dc = diff --cached
 
+[pull]
+    rebase =false
+
+[include]
+    path = ~/.gitconfig.user

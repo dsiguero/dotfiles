@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=keesync local-sync
-Hidden=false
-X-MATE-Autostart-enabled=true
-Name[en_GB]=Keesync local
-Name=Keesync local
-Comment[en_GB]=
-Comment=
