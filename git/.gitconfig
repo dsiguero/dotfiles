@@ -84,7 +84,7 @@
     dc = diff --cached
 
 [pull]
-    rebase =false
+    rebase = false
 
 [include]
     path = ~/.gitconfig.user
