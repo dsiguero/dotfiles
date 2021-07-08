@@ -42,7 +42,7 @@ ZSH_CONFIG=$XDG_CONFIG/zsh
 
 setopt globdots				# Matches dot-files (hidden) without explicitly specifying the dot.
 
-EDITOR=vim
+EDITOR=nvim
 
 case "$OSTYPE" in
   darwin*)
