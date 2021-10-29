@@ -50,6 +50,11 @@ fi
 # AWS Profile/auth/MFA functions
 [[ -s $HOME/.aws/aws_functions.zsh ]] && source $HOME/.aws/aws_functions.zsh
 
+# kubectl autocompletion
+if command -v kubectl 1>/dev/null 2>&1; then
+    source <(kubectl completion zsh)
+fi
+
 # Antigen plugins for development
 if command -v antigen >/dev/null 2>&1; then
     antigen bundle gitfast
