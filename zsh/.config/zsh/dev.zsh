@@ -55,6 +55,9 @@ if command -v kubectl 1>/dev/null 2>&1; then
     source <(kubectl completion zsh)
 fi
 
+# Java 11 (openjdk)
+export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+
 # Antigen plugins for development
 if command -v antigen >/dev/null 2>&1; then
     antigen bundle gitfast
