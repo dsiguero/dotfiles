@@ -70,3 +70,5 @@ if command -v antigen >/dev/null 2>&1; then
     
     antigen apply
 fi
+
+source $XDG_CONFIG/zsh/flexys.zsh
