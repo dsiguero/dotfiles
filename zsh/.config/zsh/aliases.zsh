@@ -32,3 +32,7 @@ alias 2fa='ykman oath code $(ykman oath list | fzf)'  # Easy CLI MFA with Yubike
 
 # Git aliases
 alias diff="git diff | ydiff -s"
+
+docker_remote_versions() {
+  wget -q "https://registry.hub.docker.com/v1/repositories/${1}/tags" -O - | jq -r '.[].name'
+}
