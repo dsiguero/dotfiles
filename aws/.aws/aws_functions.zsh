@@ -4,7 +4,6 @@ function assume-role() {
   $(aws sts assume-role --role-arn "$1" --role-session-name "$2" | jq -r '.Credentials | .["AWS_ACCESS_KEY_ID"] = .AccessKeyId | .["AWS_SECRET_ACCESS_KEY"] = .SecretAccessKey | .["AWS_SESSION_TOKEN"] = .SessionToken | del(.AccessKeyId, .SecretAccessKey, .SessionToken, .Expiration) | to_entries | .[] | "export " + .key + "=" + .value')
 }
 
-
 # This function sets the AWS_PROFILE environment variable interactively, using fzf.
 # It skips the long-term profiles, as this is part of my setup using aws-mfa
 # (https://github.com/broamski/aws-mfa)
@@ -83,4 +82,16 @@ function mfa() {
     echo "aws-mfa failed generating the short-term profile ${AWS_PROFILE}"
     return 1;
   fi
+}
+
+function aws-profile-to-env-vars {
+  if [[ -z ${AWS_PROFILE+x} ]]; then
+    echo "You need to provide the AWS profile using the environment variable 'AWS_PROFILE'";
+    return 1;
+  fi
+
+  export AWS_ACCESS_KEY_ID=$(aws configure get ${AWS_PROFILE}.aws_access_key_id)
+  export AWS_SECRET_ACCESS_KEY=$(aws configure get ${AWS_PROFILE}.aws_secret_access_key)
+  export AWS_SESSION_TOKEN=$(aws configure get ${AWS_PROFILE}.aws_session_token)
+
 }
