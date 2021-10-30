@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 ## Enable for profiling
 # zmodload zsh/zprof
 
@@ -6,6 +13,7 @@ zstyle ':completion:*' completer _complete _ignored
 # zstyle ':completion:*:(cd|mv|cp):*' ignore-parents parent pwd
 # zstyle ':completion:*:(ls|mv|cd|chdir|pushd|popd):*' special-dirs ..
 zstyle :compinstall filename '$HOME/.zshrc'
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 
 # Add brew's autocompletion functions to FPATH
 if type brew &>/dev/null; then
@@ -47,23 +55,18 @@ EDITOR=nvim
 case "$OSTYPE" in
   darwin*)
 	export BROWSER=open
-	export ANTIGEN=/usr/local/share/antigen/antigen.zsh
+	export ZPLUG=/usr/local/opt/zplug/init.zsh
 	export PATH="/usr/local/sbin:$PATH:$HOME/.bin"
 	;; 
   linux*)
 	export BROWSER=chromium
 	export TERMINAL=termite
-	export ANTIGEN=/usr/share/zsh/share/antigen.zsh
 	export PATH="$PATH:$HOME/.bin"
 	;;
 esac
 
 # Aliases #
 [[ -s $ZSH_CONFIG/aliases.zsh ]] && source $ZSH_CONFIG/aliases.zsh
-
-# Antigen configuration #
-[[ -s "${ANTIGEN}" ]] && source "${ANTIGEN}" && \
-	[[ -s "${ZSH_CONFIG}/antigen.zsh" ]] && source "${ZSH_CONFIG}/antigen.zsh"
 
 # Dev stuff #
 DEV_TOOLS=true
@@ -77,6 +80,10 @@ FZF_CONFIG="${XDG_CONFIG}/fzf"
 if command -v fzf >/dev/null 2>&1; then
 	for f in "${FZF_CONFIG}"/*.zsh; do source $f; done
 fi
+
+# ZPlug configuration #
+[[ -s "${ZPLUG}" ]] && source "${ZPLUG}" && \
+	[[ -s "${ZSH_CONFIG}/zplug.zsh" ]] && source "${ZSH_CONFIG}/zplug.zsh"
 
 ## Enable for profiling
 #zprof
