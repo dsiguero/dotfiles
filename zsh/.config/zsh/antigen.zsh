@@ -13,7 +13,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#00617a,bold"				# For solarized dark theme
 antigen bundle sudo												# Prefix current or previous command with sudo by pressing ESC twice.
 
 antigen bundle ssh-agent
-antigen bundle psprint/history-search-multi-word				# History search
 antigen bundle MenkeTechnologies/zsh-very-colorful-manuals		# Coloured man pages
 antigen bundle jocelynmallon/zshmarks							# Simple CLI bookmarking plugin: `bookmark 'n`.
 																# 	bookmark '<myname>': creates a new bookmark.
