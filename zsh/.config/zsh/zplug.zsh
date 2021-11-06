@@ -19,12 +19,6 @@ zplug "jocelynmallon/zshmarks"							# Simple CLI bookmarking plugin: `bookmark 
 # zplug "yardnsm/blox-zsh-theme", as:theme
 zplug romkatv/powerlevel10k, as:theme, depth:1
 
-# antigen bundle /Users/dan/Documents/Development/blox-zsh-theme --no-local-clone
-
-BLOX_CONF__ONELINE=true
-BLOX_SEG__UPPER_LEFT=(host cwd git exec_time symbol)
-
-
 zplug "plugins/gitfast", from:oh-my-zsh, if:"[[ "${DEV_TOOLS}" == true ]]"
 zplug "plugins/git-extras", from:oh-my-zsh, if:"[[ "${DEV_TOOLS}" == true ]]"
 zplug "plugins/git-flow", from:oh-my-zsh, if:"[[ "${DEV_TOOLS}" == true ]]"
