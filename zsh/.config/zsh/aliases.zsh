@@ -36,3 +36,5 @@ alias diff="git diff | ydiff -s"
 docker_remote_versions() {
   wget -q "https://registry.hub.docker.com/v1/repositories/${1}/tags" -O - | jq -r '.[].name'
 }
+
+alias k='kubectl'
