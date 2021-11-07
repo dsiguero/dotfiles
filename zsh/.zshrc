@@ -49,7 +49,7 @@ HISTFILE=$HOME/.zsh_histfile
 
 ZSH_CONFIG=$XDG_CONFIG/zsh
 
-
+export CLICOLOR=1			# Use colored output for ls and other commands
 
 # make search up and down work, so partially type and hit up/down to find relevant stuff
 bindkey '^[[A' up-line-or-search                                                
@@ -92,6 +92,7 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f $ZSH_CONFIG/.p10k.zsh ]] || source $ZSH_CONFIG/.p10k.zsh
+
 
 ## Enable for profiling
 #zprof
