@@ -73,11 +73,6 @@ esac
 # Aliases #
 [[ -s $ZSH_CONFIG/aliases.zsh ]] && source $ZSH_CONFIG/aliases.zsh
 
-# Dev stuff #
-DEV_TOOLS=true
-DEV_MODE_PYTHON=true
-[[ "${DEV_TOOLS}" == "true" ]] && [[ -s $ZSH_CONFIG/dev.zsh ]] && source $ZSH_CONFIG/dev.zsh
-
 export BAT_THEME="Solarized (dark)"
 
 # fzf functions #
@@ -93,6 +88,10 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f $ZSH_CONFIG/.p10k.zsh ]] || source $ZSH_CONFIG/.p10k.zsh
 
+# Dev stuff #
+DEV_TOOLS=true
+DEV_MODE_PYTHON=true
+[[ "${DEV_TOOLS}" == "true" ]] && [[ -s $ZSH_CONFIG/dev.zsh ]] && source $ZSH_CONFIG/dev.zsh
 
 ## Enable for profiling
 #zprof
