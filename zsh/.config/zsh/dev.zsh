@@ -63,17 +63,14 @@ fi
 # Java 11 (openjdk)
 export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 
-# Antigen plugins for development
-if command -v antigen >/dev/null 2>&1; then
-    antigen bundle gitfast
-    antigen bundle git-extras
-    antigen bundle git-flow
-    antigen bundle unixorn/git-extra-commands
+# The next line enables shell command completion for gcloud.
+if [ -f $HOME/google-cloud-sdk/completion.zsh.inc ]; then
+    source $HOME/google-cloud-sdk/completion.zsh.inc;
+fi
 
-    [[ "${DEV_MODE_NODE}" == true ]] && antigen bundle node
-    [[ "${DEV_MODE_NODE}" == true ]] && antigen bundle npm
-    
-    antigen apply
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f $HOME/google-cloud-sdk/path.zsh.inc ]; then
+    source $HOME/google-cloud-sdk/path.zsh.inc;
 fi
 
 # The next line enables shell command completion for gcloud.
