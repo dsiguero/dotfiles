@@ -90,6 +90,9 @@ fi
 [[ -s "${ZPLUG}" ]] && source "${ZPLUG}" && \
 	[[ -s "${ZSH_CONFIG}/zplug.zsh" ]] && source "${ZSH_CONFIG}/zplug.zsh"
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f $ZSH_CONFIG/.p10k.zsh ]] || source $ZSH_CONFIG/.p10k.zsh
+
 ## Enable for profiling
 #zprof
 
