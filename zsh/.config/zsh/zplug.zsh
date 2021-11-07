@@ -1,6 +1,6 @@
 # Antigen configuration
 
-zplug "zsh-users/zsh-completions"						# Aditional completion definitions for zsh.
+# zplug "zsh-users/zsh-completions"						# Aditional completion definitions for zsh.
 zplug "zsh-users/zsh-autosuggestions"					# Suggests commands as you type based on history and completions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#00617a,bold"		# For solarized dark theme
 
