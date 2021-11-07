@@ -51,10 +51,6 @@ ZSH_CONFIG=$XDG_CONFIG/zsh
 
 export CLICOLOR=1			# Use colored output for ls and other commands
 
-# make search up and down work, so partially type and hit up/down to find relevant stuff
-bindkey '^[[A' up-line-or-search                                                
-bindkey '^[[B' down-line-or-search
-
 EDITOR=nvim
 
 case "$OSTYPE" in
@@ -92,6 +88,10 @@ fi
 DEV_TOOLS=true
 DEV_MODE_PYTHON=true
 [[ "${DEV_TOOLS}" == "true" ]] && [[ -s $ZSH_CONFIG/dev.zsh ]] && source $ZSH_CONFIG/dev.zsh
+
+# make search up and down work, so partially type and hit up/down to find relevant stuff
+bindkey '^[[A' history-beginning-search-backward
+bindkey '^[[B' history-beginning-search-forward
 
 ## Enable for profiling
 #zprof
