@@ -1,9 +1,6 @@
 # Antigen configuration
 
 zplug "zsh-users/zsh-completions"						# Aditional completion definitions for zsh.
-zplug "zsh-users/zsh-syntax-highlighting"				# This package provides syntax highlighting (whilst typing) for the shell zsh.
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor pattern line root)
-
 zplug "zsh-users/zsh-autosuggestions"					# Suggests commands as you type based on history and completions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#00617a,bold"		# For solarized dark theme
 
