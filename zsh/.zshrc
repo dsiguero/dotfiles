@@ -41,6 +41,7 @@ setopt hist_find_no_dups				# ignore duplicates when searching (Ctrl + R)
 setopt hist_expire_dups_first 			# delete duplicates first when history exceeds HISTSIZE
 setopt hist_save_no_dups				# ignore duplicates when writing history file
 setopt hist_verify          			# show command with history expansion to user before running it
+setopt globdots							# Matches dot-files (hidden) without explicitly specifying the dot.
 
 HISTSIZE=5000
 SAVEHIST=10000
@@ -48,7 +49,7 @@ HISTFILE=$HOME/.zsh_histfile
 
 ZSH_CONFIG=$XDG_CONFIG/zsh
 
-setopt globdots				# Matches dot-files (hidden) without explicitly specifying the dot.
+
 
 # make search up and down work, so partially type and hit up/down to find relevant stuff
 bindkey '^[[A' up-line-or-search                                                
