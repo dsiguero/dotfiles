@@ -17,7 +17,7 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 
 # Add brew's autocompletion functions to FPATH
 if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  FPATH=/usr/local/share/zsh/site-functions:$FPATH
 fi
 
 autoload -Uz compinit
