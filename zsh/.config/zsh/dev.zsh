@@ -8,6 +8,7 @@ if [[ "${DEV_MODE_PYTHON}" == true ]]; then
     # Add more python related stuff here.
 fi
 
+## TODO: Replace for fnm
 if [[ "${DEV_MODE_NODE}" == true ]]; then
     # running nvm use if .nvmrc exists when accessing a directory
     autoload -U add-zsh-hook
@@ -72,5 +73,41 @@ fi
 if [ -f $HOME/google-cloud-sdk/path.zsh.inc ]; then
     source $HOME/google-cloud-sdk/path.zsh.inc;
 fi
+
+function gh_web {
+  open $(git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@') | head -n1
+}
+
+alias base64=gbase64
+alias xargs=gxargs
+alias kctl=kubectl
+
+wkctl() {
+  watch kubectl $@
+}
+
+function ns_get_resources {
+  kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n $@
+}
+
+function have_you_tried {
+  deployment_name="${1}"
+  kubectl scale deployment "${deployment_name}" --replicas=0;
+  sleep 5;
+  kubectl scale deployment "${deployment_name}" --replicas=1;
+}
+
+function gcpsm_get {
+  project=$1
+  version="latest"
+
+  if [[ $# -ne 1  ]]; then
+    echo "Illegal number of parameters. Missing GCP project." >&2
+    return 2
+  fi
+
+  secret_name=$(gcloud secrets list --project="${project}" | fzf --header-lines=1 | awk '{ print $1 }')
+  gcloud secrets versions access latest --secret="${secret_name}" --project="${project}"
+}
 
 source $XDG_CONFIG/zsh/flexys.zsh
