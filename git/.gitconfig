@@ -35,7 +35,7 @@
 [push]
     ; "simple" avoid headaches, specially if you use `--force` w/o specifying branch
     ; see: http://stackoverflow.com/questions/13148066/warning-push-default-is-unset-its-implicit-value-is-changing-in-git-2-0
-    default = simple
+	default = current
 [url "git://github.com/"]
     insteadOf = "github:"
 [url "git@github.com:"]
@@ -82,6 +82,7 @@
     co = checkout
     br = branch
     dc = diff --cached
+	hs = log --pretty='%C(yellow)%h %C(cyan)%cd %Cblue%aN%C(auto)%d %Creset%s' --graph --date=relative --date-order
 
 [pull]
     rebase = false
